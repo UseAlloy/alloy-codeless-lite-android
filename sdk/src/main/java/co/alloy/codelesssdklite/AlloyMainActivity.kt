@@ -28,9 +28,10 @@ class AlloyMainActivity : AppCompatActivity() {
 
     private var permissionRequest: PermissionRequest? = null
     private val requestCameraPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-        if (isGranted) {
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { granted ->
+        logd("Camera permission request result: $granted ${permissionRequest?.resources?.joinToString()}")
+        if (granted.all { it.value }) {
             permissionRequest?.let {
                 it.grant(it.resources)
             }
@@ -99,7 +100,15 @@ class AlloyMainActivity : AppCompatActivity() {
 
             override fun onPermissionRequest(request: PermissionRequest) {
                 permissionRequest = request
-                requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+                logd("onPermissionRequest ${request.resources.joinToString()}")
+                requestCameraPermissionLauncher.launch(
+                    arrayOf(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.MODIFY_AUDIO_SETTINGS,
+                        Manifest.permission.BLUETOOTH,
+                    )
+                )
             }
         }
         binding.webView.loadUrl(initialUrl)
