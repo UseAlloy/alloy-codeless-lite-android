@@ -10,7 +10,6 @@ import android.webkit.PermissionRequest
 import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
 import android.webkit.WebView
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.BuildConfig
@@ -42,29 +41,49 @@ class AlloyMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        Alloy.closeActivityListener = {
+            finish()
+        }
+
         binding = AlloyActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         configureWebView()
+    }
 
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                if (binding.webView.canGoBack()) {
-                    binding.webView.goBack()
-                } else {
-                    Alloy.finishCancelled()
-                    finish()
-                }
-            }
-        })
+    override fun onDestroy() {
+        super.onDestroy()
+        Alloy.closeActivityListener = null
     }
 
     private val host = "appassets.androidplatform.net"
     private val initialUrl = "https://$host/index.html"
     private val alloySettings: AlloySettings by lazy { Alloy.settings!! }
 
+    override fun onBackPressed() {
+        if (binding.webView.canGoBack()) {
+            binding.webView.goBack()
+        } else {
+            Alloy.finishCancelled()
+            finish()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.webView.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.webView.onPause()
+    }
+
     private fun configureWebView() = with(binding.webView) {
         WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
 
+        clearCache(true)
+        clearFormData()
+        clearHistory()
         settings.apply {
             useWideViewPort = false
             setSupportZoom(false)

@@ -11,6 +11,7 @@ object Alloy {
     }
 
     var listener: Listener? = null
+    internal var closeActivityListener: (()->Unit)? = null
 
     internal var settings: AlloySettings? = null
 
@@ -23,7 +24,11 @@ object Alloy {
         context.showAlloy()
     }
 
-    internal fun finishCancelled() = listener?.onCancelled()
+    internal fun finishCancelled() {
+        listener?.onCancelled()
+        closeActivityListener?.invoke()
+    }
+
     internal fun finishDenied() = listener?.onDenied()
     internal fun finishManualReview() = listener?.onManualReview()
     internal fun finishSuccess() = listener?.onSuccess()
