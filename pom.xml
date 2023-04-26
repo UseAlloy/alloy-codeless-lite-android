@@ -7,8 +7,8 @@
     <version>1</version>
     <distributionManagement>
         <repository>
-            <id>co.alloy.codelesssdklite</id>
-            <name>Alloy Codeless SDK</name>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
             <url>https://maven.pkg.github.com/UseAlloy/alloy-codeless-lite-android</url>
         </repository>
     </distributionManagement>
