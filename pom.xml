@@ -1,8 +1,8 @@
 <project>
     <distributionManagement>
         <repository>
-            <id>co.alloy.codelesssdklite</id>
-            <name>Alloy Codeless SDK Lite</name>
+            <id>co.alloy.sdk.android</id>
+            <name>Alloy Codeless SDK</name>
             <url>https://maven.pkg.github.com/UseAlloy/alloy-codeless-lite-android</url>
         </repository>
     </distributionManagement>
