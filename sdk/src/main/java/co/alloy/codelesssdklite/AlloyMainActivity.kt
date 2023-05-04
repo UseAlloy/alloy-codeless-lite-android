@@ -50,6 +50,16 @@ class AlloyMainActivity : AppCompatActivity() {
         configureWebView()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        binding.webView.saveState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        binding.webView.restoreState(savedInstanceState)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         Alloy.closeActivityListener = null
