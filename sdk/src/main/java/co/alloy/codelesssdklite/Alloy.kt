@@ -9,6 +9,7 @@ object Alloy {
         fun onDenied() {}
         fun onManualReview() {}
         fun journeyApplicationTokenCreated(token: String) {}
+        fun gotError(error: String) {}
     }
 
     var listener: Listener? = null
@@ -44,6 +45,11 @@ object Alloy {
     internal fun finishSuccess() = listener?.onSuccess()
     internal fun journeyApplicationTokenCreated(token: String) {
         listener?.journeyApplicationTokenCreated(token)
+        closeActivityListener?.invoke()
+    }
+
+    internal fun gotError(error: String) {
+        listener?.gotError(error)
         closeActivityListener?.invoke()
     }
 }

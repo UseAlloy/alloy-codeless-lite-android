@@ -113,16 +113,7 @@ class AlloyMainActivity : AppCompatActivity() {
         isVerticalScrollBarEnabled = false
         isHorizontalScrollBarEnabled = false
         scrollBarStyle = View.SCROLLBARS_INSIDE_OVERLAY
-        when (function) {
-            Function.START_ALLOY -> addJavascriptInterface(
-                WebViewInterfaceStartAlloyResponse(),
-                "CallbackObject"
-            )
-            Function.CREATE_JOURNEY_APPLICATION -> addJavascriptInterface(
-                WebViewInterfaceCreateJourneyApplicationResponse(),
-                "CallbackObject"
-            )
-        }
+        addJavascriptInterface(WebViewInterface(), "CallbackObject")
 
         val assetLoader = WebViewAssetLoader.Builder()
             .addPathHandler(

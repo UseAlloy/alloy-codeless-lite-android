@@ -63,6 +63,10 @@ class MainActivity : ComponentActivity() {
             override fun journeyApplicationTokenCreated(token: String) {
                 Log.d("AlloyDemo", "journeyApplicationTokenCreated: $token")
             }
+
+            override fun gotError(error: String) {
+                Log.d("AlloyDemo", "gotError: $error")
+            }
         }
 
         setContent {
