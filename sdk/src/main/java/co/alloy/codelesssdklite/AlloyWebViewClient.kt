@@ -14,6 +14,7 @@ class AlloyWebViewClient(
     private val initialUrl: String,
     private val assetLoader: WebViewAssetLoader,
     private val alloySettings: AlloySettings,
+    private val function: Function,
 ) : WebViewClient() {
     private fun shouldIntercept(uri: Uri): WebResourceResponse? {
         if (host.equals(uri.host, ignoreCase = true)) {
@@ -35,17 +36,33 @@ class AlloyWebViewClient(
         super.onPageFinished(view, url)
         logd("onPageFinished $url")
         if (initialUrl.equals(url, ignoreCase = true)) {
-            val parameters = Gson().toJson(alloySettings)
+            when (function) {
+                Function.START_ALLOY -> {
+                    val parameters = Gson().toJson(alloySettings)
 
-            logd("Init parameters $parameters")
+                    logd("Init parameters $parameters")
 
-            view.loadUrl(
-                """
+                    view.loadUrl(
+                        """
                         javascript:(function() {
                             window.StartAlloy($parameters);
                         })()
                     """
-            )
+                    )
+                }
+                Function.CREATE_JOURNEY_APPLICATION -> {
+                    val settings = Gson().toJson(alloySettings.copy(journeyData = null))
+                    val journeyData = Gson().toJson(alloySettings.journeyData)
+
+                    view.loadUrl(
+                        """
+                        javascript:(function() {
+                            window.CreateJourneyApplication($settings, $journeyData);
+                        })()
+                    """
+                    )
+                }
+            }
         }
     }
 }

@@ -3,7 +3,7 @@ package co.alloy.codelesssdklite
 import android.webkit.JavascriptInterface
 import org.json.JSONObject
 
-class WebViewInterface {
+class WebViewInterfaceStartAlloyResponse {
     @JavascriptInterface
     fun callback(data: String) {
         logd(data)

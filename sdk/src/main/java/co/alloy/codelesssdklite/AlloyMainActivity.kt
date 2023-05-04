@@ -16,13 +16,21 @@ import androidx.viewbinding.BuildConfig
 import androidx.webkit.WebViewAssetLoader
 import co.alloy.codelesssdklite.databinding.AlloyActivityMainBinding
 
-internal fun Context.showAlloy() {
+internal fun Context.showAlloy(function: Function) {
     startActivity(
-        Intent(this, AlloyMainActivity::class.java)
+        Intent(this, AlloyMainActivity::class.java).apply {
+            putExtra(AlloyMainActivity.EXTRA_FUNCTION, function)
+        }
     )
 }
 
 class AlloyMainActivity : AppCompatActivity() {
+    companion object {
+        const val EXTRA_FUNCTION = "function"
+    }
+
+    private val function: Function by lazy { intent.getSerializableExtra(EXTRA_FUNCTION) as Function }
+
     private lateinit var binding: AlloyActivityMainBinding
 
     private var permissionRequest: PermissionRequest? = null
@@ -105,7 +113,16 @@ class AlloyMainActivity : AppCompatActivity() {
         isVerticalScrollBarEnabled = false
         isHorizontalScrollBarEnabled = false
         scrollBarStyle = View.SCROLLBARS_INSIDE_OVERLAY
-        addJavascriptInterface(WebViewInterface(), "CallbackObject")
+        when (function) {
+            Function.START_ALLOY -> addJavascriptInterface(
+                WebViewInterfaceStartAlloyResponse(),
+                "CallbackObject"
+            )
+            Function.CREATE_JOURNEY_APPLICATION -> addJavascriptInterface(
+                WebViewInterfaceCreateJourneyApplicationResponse(),
+                "CallbackObject"
+            )
+        }
 
         val assetLoader = WebViewAssetLoader.Builder()
             .addPathHandler(
@@ -113,7 +130,13 @@ class AlloyMainActivity : AppCompatActivity() {
                 WebViewAssetLoader.AssetsPathHandler(context),
             )
             .build()
-        webViewClient = AlloyWebViewClient(host, initialUrl, assetLoader, alloySettings)
+        webViewClient = AlloyWebViewClient(
+            host = host,
+            initialUrl = initialUrl,
+            assetLoader = assetLoader,
+            alloySettings = alloySettings,
+            function = function,
+        )
 
         webChromeClient = object : WebChromeClient() {
             override fun onShowFileChooser(

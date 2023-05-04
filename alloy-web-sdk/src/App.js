@@ -12,6 +12,17 @@ function App() {
         }
         alloy.open(alloyCallback, document.getElementById('root'));
     }
+
+    window.CreateJourneyApplication = async function(settings, journeyData) {
+        alloy.init(settings);
+        try {
+            const result = await alloy.createJourneyApplication(journeyData);
+            console.log(result);
+            window.CallbackObject.callback(result);
+        } catch (e) {
+            console.log(JSON.stringify(e));
+        }
+    }
 }
 
 export default App;
