@@ -27,17 +27,20 @@ class MainActivity : ComponentActivity() {
         val entityDataPerson2 = AlloySettings.Entity.EntityData(firstName = "Mary", lastName = "Random6 Random6")
         val entityPerson2 = AlloySettings.Entity(entityData = entityDataPerson2, entityType = "person", branchName = "persons")
 
+        val journeyData = AlloySettings.JourneyData(
+            entities = listOf(entityPerson, entityPerson2),
+            doAwaitAdditionalEntities = false,
+            externalGroupId = null,
+            externalProductId = null,
+        )
+
         val settings = AlloySettings(
-            apiKey = "a3cbb53c-8fae-409c-9ee1-35bb60bd6107",
+            apiKey = "9ca83767-f213-4aaf-bc1b-1ed0a89eaf23",
             production = false,
             isNext = true,
-            journeyToken = "J-59H8fV7Ft6jI5AoMrrwi",
-            journeyData = AlloySettings.JourneyData(
-                entities = listOf(entityPerson, entityPerson2),
-                doAwaitAdditionalEntities = false,
-                externalGroupId = null,
-                externalProductId = null,
-            ),
+            journeyToken = "J-UMEhLDP3p759425pz1uP",
+            journeyApplicationToken = "JA-eJ8aIOG5UhmL0liGeAlz",
+            journeyData = journeyData,
         )
 
         Alloy.listener = object : Alloy.Listener {
@@ -55,6 +58,14 @@ class MainActivity : ComponentActivity() {
 
             override fun onSuccess() {
                 Log.d("AlloyDemo", "onSuccess")
+            }
+
+            override fun journeyApplicationTokenCreated(token: String) {
+                Log.d("AlloyDemo", "journeyApplicationTokenCreated: $token")
+            }
+
+            override fun gotError(error: String) {
+                Log.d("AlloyDemo", "gotError: $error")
             }
         }
 
@@ -76,6 +87,14 @@ class MainActivity : ComponentActivity() {
                                 }
                             ) {
                                 Text(text = stringResource(R.string.main_start_sdk))
+                            }
+
+                            Button(
+                                onClick = {
+                                    Alloy.createApplication(this@MainActivity, settings)
+                                }
+                            ) {
+                                Text(text = stringResource(R.string.main_create_journey_application))
                             }
                         }
                     }

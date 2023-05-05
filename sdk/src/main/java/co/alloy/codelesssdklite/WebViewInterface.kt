@@ -5,7 +5,7 @@ import org.json.JSONObject
 
 class WebViewInterface {
     @JavascriptInterface
-    fun callback(data: String) {
+    fun startAlloy(data: String) {
         logd(data)
         val result = JSONObject(data)
         when (result.getString("status").lowercase()) {
@@ -19,5 +19,17 @@ class WebViewInterface {
                 }
             }
         }
+    }
+
+    @JavascriptInterface
+    fun journeyApplicationTokenCreated(data: String) {
+        logd(data)
+        Alloy.journeyApplicationTokenCreated(data)
+    }
+
+    @JavascriptInterface
+    fun gotError(error: String) {
+        logd(error)
+        Alloy.gotError(error)
     }
 }

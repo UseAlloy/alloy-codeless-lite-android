@@ -12,6 +12,7 @@
     <application>
         <activity
             android:name=".AlloyMainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="false"
             android:hardwareAccelerated="true"
             android:label="@string/app_name"

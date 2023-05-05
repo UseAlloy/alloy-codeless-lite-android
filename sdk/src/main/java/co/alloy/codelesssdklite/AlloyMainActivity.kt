@@ -16,13 +16,21 @@ import androidx.viewbinding.BuildConfig
 import androidx.webkit.WebViewAssetLoader
 import co.alloy.codelesssdklite.databinding.AlloyActivityMainBinding
 
-internal fun Context.showAlloy() {
+internal fun Context.showAlloy(function: Function) {
     startActivity(
-        Intent(this, AlloyMainActivity::class.java)
+        Intent(this, AlloyMainActivity::class.java).apply {
+            putExtra(AlloyMainActivity.EXTRA_FUNCTION, function)
+        }
     )
 }
 
 class AlloyMainActivity : AppCompatActivity() {
+    companion object {
+        const val EXTRA_FUNCTION = "function"
+    }
+
+    private val function: Function by lazy { intent.getSerializableExtra(EXTRA_FUNCTION) as Function }
+
     private lateinit var binding: AlloyActivityMainBinding
 
     private var permissionRequest: PermissionRequest? = null
@@ -48,6 +56,16 @@ class AlloyMainActivity : AppCompatActivity() {
         binding = AlloyActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         configureWebView()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        binding.webView.saveState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        binding.webView.restoreState(savedInstanceState)
     }
 
     override fun onDestroy() {
@@ -103,7 +121,13 @@ class AlloyMainActivity : AppCompatActivity() {
                 WebViewAssetLoader.AssetsPathHandler(context),
             )
             .build()
-        webViewClient = AlloyWebViewClient(host, initialUrl, assetLoader, alloySettings)
+        webViewClient = AlloyWebViewClient(
+            host = host,
+            initialUrl = initialUrl,
+            assetLoader = assetLoader,
+            alloySettings = alloySettings,
+            function = function,
+        )
 
         webChromeClient = object : WebChromeClient() {
             override fun onShowFileChooser(
