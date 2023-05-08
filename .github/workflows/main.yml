@@ -14,6 +14,11 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
+      - name: Publish to GitHub Package Registry 🚀
+        run: bash ./gradlew clean sdk:assembleRelease
+        env:
+          GPR_USER: ${{ github.actor }}
+          GPR_KEY: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish package
         run: mvn --batch-mode deploy
         env:
