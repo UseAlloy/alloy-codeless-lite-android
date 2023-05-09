@@ -43,6 +43,7 @@ android {
     }
 }
 
+<<<<<<< HEAD
 afterEvaluate {
     publishing {
         publications {
@@ -66,8 +67,8 @@ afterEvaluate {
                 name = "GitHubPackages"
                 url = uri("https://maven.pkg.github.com/UseAlloy/alloy-codeless-lite-android")
                 credentials {
-                    username = System.getenv("GITHUB_ACTOR") || 'mrestuccia'
-                    password = System.getenv("GITHUB_TOKEN") || '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'
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
                 }
             }
         }
