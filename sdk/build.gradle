@@ -43,7 +43,6 @@ android {
     }
 }
 
-<<<<<<< HEAD
 afterEvaluate {
     publishing {
         publications {
