@@ -50,14 +50,7 @@ afterEvaluate {
                 from components.release
                 groupId 'co.alloy.codelesssdklite'
                 artifactId 'sdk'
-                version '1.0.1'
-            }
-
-            debug(MavenPublication) {
-                from components.debug
-                groupId 'co.alloy.codelesssdklite'
-                artifactId 'sdk'
-                version '1.0.1'
+                version '1.0.9'
             }
         }
 
