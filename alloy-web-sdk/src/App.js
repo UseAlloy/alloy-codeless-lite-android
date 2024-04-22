@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import alloy from '@alloyidentity/web-sdk';
 import './App.css';
 
