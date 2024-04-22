@@ -50,7 +50,7 @@ afterEvaluate {
                 from components.release
                 groupId 'co.alloy.codelesssdklite'
                 artifactId 'sdk'
-                version '1.0.9'
+                version '1.0.12'
             }
         }
 
