@@ -9,19 +9,12 @@ class WebViewInterface {
         logd(data)
         val result = JSONObject(data)
         when (result.getString("status").lowercase()) {
-            "closed" -> Alloy.finishCancelled()
-            "pending_step_up" -> Alloy.finishCancelled()
-            "expired" -> Alloy.finishCancelled()
-            "waiting_review" -> Alloy.finishCancelled()
-            "completed" -> {
-                when (result.getString("outcome").lowercase()) {
-                    "approved" -> Alloy.finishSuccess()
-                    "manual review" -> Alloy.finishManualReview()
-                    "denied" -> Alloy.finishDenied()
-                    else -> Alloy.finishDenied()
-                }
-            }
-            else -> Alloy.finishCancelled()
+            "closed" -> Alloy.finish()
+            "pending_step_up" -> Alloy.finish()
+            "expired" -> Alloy.finish()
+            "waiting_review" -> Alloy.finish()
+            "completed" -> Alloy.finish()
+            else -> Alloy.finish()
         }
     }
 

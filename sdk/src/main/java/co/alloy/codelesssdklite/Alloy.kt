@@ -4,6 +4,9 @@ import android.content.Context
 
 object Alloy {
     interface Listener {
+        fun onDone() {
+            logd("onDone")
+        }
         fun onCancelled() {}
         fun onSuccess() {}
         fun onDenied() {}
@@ -37,6 +40,11 @@ object Alloy {
 
     internal fun finishCancelled() {
         listener?.onCancelled()
+        closeActivityListener?.invoke()
+    }
+
+    internal fun finish() {
+        listener?.onDone()
         closeActivityListener?.invoke()
     }
 
