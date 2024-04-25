@@ -7,22 +7,7 @@ class WebViewInterface {
     @JavascriptInterface
     fun startAlloy(data: String) {
         logd(data)
-        val result = JSONObject(data)
-        when (result.getString("status").lowercase()) {
-            "closed" -> Alloy.finishCancelled()
-            "pending_step_up" -> Alloy.finishCancelled()
-            "expired" -> Alloy.finishCancelled()
-            "waiting_review" -> Alloy.finishCancelled()
-            "completed" -> {
-                when (result.getString("outcome").lowercase()) {
-                    "approved" -> Alloy.finishSuccess()
-                    "manual review" -> Alloy.finishManualReview()
-                    "denied" -> Alloy.finishDenied()
-                    else -> Alloy.finishDenied()
-                }
-            }
-            else -> Alloy.finishCancelled()
-        }
+        Alloy.finishCancelled()
     }
 
     @JavascriptInterface
