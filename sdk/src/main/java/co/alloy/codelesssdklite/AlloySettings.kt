@@ -13,7 +13,6 @@ data class AlloySettings(
     @SerializedName("production") val production: Boolean = false,
     @SerializedName("color") val color: Any? = null,
     @SerializedName("customStyle") val customStyle: Any? = null,
-    @SerializedName("isNext") val isNext: Boolean,
 ) {
     data class Entity(
         @SerializedName("entity_type") val entityType: String,

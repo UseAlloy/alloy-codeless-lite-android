@@ -9,6 +9,7 @@ import android.view.View
 import android.webkit.PermissionRequest
 import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
+import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -108,6 +109,7 @@ class AlloyMainActivity : AppCompatActivity() {
             javaScriptCanOpenWindowsAutomatically = true
             javaScriptEnabled = true
             domStorageEnabled = true
+            cacheMode = WebSettings.LOAD_NO_CACHE
             mediaPlaybackRequiresUserGesture = false
         }
         isVerticalScrollBarEnabled = false

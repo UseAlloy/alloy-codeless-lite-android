@@ -34,13 +34,21 @@ class MainActivity : ComponentActivity() {
             externalProductId = null,
         )
 
+//        val settings = AlloySettings(
+//            apiKey = "9ca83767-f213-4aaf-bc1b-1ed0a89eaf23",
+//            production = false,
+//            isNext = true,
+//            journeyToken = "J-UMEhLDP3p759425pz1uP",
+//            journeyApplicationToken = "JA-eJ8aIOG5UhmL0liGeAlz",
+//            journeyData = journeyData,
+//        )
+
         val settings = AlloySettings(
-            apiKey = "9ca83767-f213-4aaf-bc1b-1ed0a89eaf23",
+            apiKey = "22501763-79c3-4f8d-a069-ce99afad16d5",
+            journeyToken =  "J-UMEhLDP3p759425pz1uP",
+            journeyApplicationToken = "JA-V4okGJmdcCnaPVneWt5Y",
+            entityToken = "P-4dutshcn5WOyFTJBMqMD",
             production = false,
-            isNext = true,
-            journeyToken = "J-UMEhLDP3p759425pz1uP",
-            journeyApplicationToken = "JA-eJ8aIOG5UhmL0liGeAlz",
-            journeyData = journeyData,
         )
 
         Alloy.listener = object : Alloy.Listener {
