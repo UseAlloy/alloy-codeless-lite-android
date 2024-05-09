@@ -37,7 +37,6 @@ class MainActivity : ComponentActivity() {
         val settings = AlloySettings(
             apiKey = "9ca83767-f213-4aaf-bc1b-1ed0a89eaf23",
             production = false,
-            isNext = true,
             journeyToken = "J-UMEhLDP3p759425pz1uP",
             journeyApplicationToken = "JA-eJ8aIOG5UhmL0liGeAlz",
             journeyData = journeyData,

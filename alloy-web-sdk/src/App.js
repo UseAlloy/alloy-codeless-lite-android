@@ -4,7 +4,10 @@ import './App.css';
 function App() {
     window.StartAlloy = async function(settings) {
         try {
-            await alloy.init(settings);
+            await alloy.init({
+                ...settings,
+                isAndroidDevice: true,
+            });
             let alloyCallback = function(data) {
                 let json = JSON.stringify(data);
                 console.log(json);
