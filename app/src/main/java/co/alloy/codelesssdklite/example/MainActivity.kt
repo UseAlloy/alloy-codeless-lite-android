@@ -17,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import co.alloy.codelesssdklite.Alloy
 import co.alloy.codelesssdklite.AlloySettings
 import co.alloy.codelesssdklite.example.ui.theme.AlloyCodelessSdkLiteTheme
+import org.json.JSONObject
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,10 +36,10 @@ class MainActivity : ComponentActivity() {
         )
 
         val settings = AlloySettings(
-            apiKey = "9ca83767-f213-4aaf-bc1b-1ed0a89eaf23",
+            apiKey = "22501763-79c3-4f8d-a069-ce99afad16d5",
             production = false,
             journeyToken = "J-UMEhLDP3p759425pz1uP",
-            journeyApplicationToken = "JA-eJ8aIOG5UhmL0liGeAlz",
+            journeyApplicationToken = "JA-jxNgt4WHD6ttq7KyHVAw",
             journeyData = journeyData,
         )
 
@@ -56,7 +57,11 @@ class MainActivity : ComponentActivity() {
             }
 
             override fun onSuccess() {
-                Log.d("AlloyDemo", "onSuccess")
+
+            }
+
+            override fun onDone(result: JSONObject) {
+                Log.d("AlloyDemo", "onDone ---->  $result")
             }
 
             override fun journeyApplicationTokenCreated(token: String) {
