@@ -1,12 +1,11 @@
 package co.alloy.codelesssdklite
 
 import android.content.Context
+import org.json.JSONObject
 
 object Alloy {
     interface Listener {
-        fun onDone() {
-            logd("onDone")
-        }
+        fun onDone(result: JSONObject) {}
         fun onCancelled() {}
         fun onSuccess() {}
         fun onDenied() {}
@@ -43,8 +42,8 @@ object Alloy {
         closeActivityListener?.invoke()
     }
 
-    internal fun finish() {
-        listener?.onDone()
+    internal fun finish(result:JSONObject) {
+        listener?.onDone(result)
         closeActivityListener?.invoke()
     }
 
