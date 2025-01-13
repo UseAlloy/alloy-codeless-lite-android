@@ -17,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import co.alloy.codelesssdklite.Alloy
 import co.alloy.codelesssdklite.AlloySettings
 import co.alloy.codelesssdklite.example.ui.theme.AlloyCodelessSdkLiteTheme
+import com.google.gson.GsonBuilder
 import org.json.JSONObject
 
 class MainActivity : ComponentActivity() {
@@ -35,12 +36,36 @@ class MainActivity : ComponentActivity() {
             externalProductId = null,
         )
 
+        data class Theme(
+            val primaryColor: String,
+            val backgroundColor: String,
+            val textColor: String,
+            val borderRadius: String
+        )
+
+        data class Configuration(
+            val theme: Theme
+        )
+
+        val config = Configuration(
+            theme = Theme(
+                primaryColor = "#FF0000",
+                backgroundColor = "#000000",
+                textColor = "#FFFFFF",
+                borderRadius = "10px"
+            )
+        )
+
         val settings = AlloySettings(
-            apiKey = "22501763-79c3-4f8d-a069-ce99afad16d5",
+            apiKey = "3c6b3646-85d2-419a-a168-3aca019d93a8",
             production = false,
-            journeyToken = "J-UMEhLDP3p759425pz1uP",
-            journeyApplicationToken = "JA-jxNgt4WHD6ttq7KyHVAw",
-            journeyData = journeyData,
+            journeyToken = "J-siYOQbXkJFcTOwvXhvHp",
+            journeyApplicationToken = "JA-HKzHsS2VkDx0evHWu644",
+            customStyle = config,
+            entityToken = "P-Rs1ICuCBLSihbETsNvdQ",
+            isSingleEntity = true,
+            appUrl =  "https://corekube-dev-alloysdk.app.alloy.com/",
+            apiUrl =  "https://corekube-dev-alloysdk.api.alloy.com/",
         )
 
         Alloy.listener = object : Alloy.Listener {
