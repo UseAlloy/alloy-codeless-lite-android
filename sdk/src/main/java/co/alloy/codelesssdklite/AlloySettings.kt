@@ -13,7 +13,9 @@ data class AlloySettings(
     @SerializedName("production") val production: Boolean = false,
     @SerializedName("color") val color: Any? = null,
     @SerializedName("customStyle") val customStyle: Any? = null,
-) {
+    @SerializedName("appUrl") val appUrl: String? = null,
+    @SerializedName("apiUrl") val apiUrl: String? = null,
+    ) {
     data class Entity(
         @SerializedName("entity_type") val entityType: String,
         @SerializedName("branch_name") val branchName: String?,

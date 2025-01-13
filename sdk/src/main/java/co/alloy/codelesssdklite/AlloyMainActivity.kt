@@ -136,9 +136,13 @@ class AlloyMainActivity : AppCompatActivity() {
                 fileChooserParams: FileChooserParams?
             ): Boolean {
                 this@AlloyMainActivity.filePathCallback = filePathCallback
-                pickFile.launch(fileChooserParams?.acceptTypes?.firstOrNull() ?: "image/*")
-
-                return true
+                try {
+                    pickFile.launch("*/*")
+                } catch (e: Exception) {
+                    logd("onShowFileChooser: issue loading the pickFile")
+                } finally {
+                    return true
+                }
             }
 
             override fun onPermissionRequest(request: PermissionRequest) {
