@@ -66,7 +66,7 @@ class MainActivity : ComponentActivity() {
             isSingleEntity = true,
             appUrl =  "https://corekube-dev-alloysdk.app.alloy.com/",
             apiUrl =  "https://corekube-dev-alloysdk.api.alloy.com/",
-            )
+        )
 
         Alloy.listener = object : Alloy.Listener {
             override fun onCancelled() {
